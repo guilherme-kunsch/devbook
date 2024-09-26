@@ -21,6 +21,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	if err = json.Unmarshal(body, &user); err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(user)
 
 	db, err := banco.Conection()
 	if err != nil {
@@ -28,7 +29,12 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	repository := repositories.NewRepositoryUsers(db)
-	repository.Create(user)
+	userID, err := repository.Create(user)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w.Write([]byte(fmt.Sprintf("ID entered: %d", userID)))
 }
 
 func SearchUsers(w http.ResponseWriter, r *http.Request) {

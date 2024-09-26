@@ -18,7 +18,7 @@ func ToLoad() {
 	var erro error
 
 	if err := godotenv.Load(); err != nil {
-		log.Fatal(err)
+		log.Fatal("Erro ao carregar o .env:", err)
 	}
 
 	Port, erro = strconv.Atoi(os.Getenv("API_PORT"))
@@ -26,10 +26,12 @@ func ToLoad() {
 		Port = 9000
 	}
 
-	StringConnection = fmt.Sprintf("%s:%s/%s?charset=utf&parseTime=True&loc=local",
+	StringConnection = fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s?charset=utf8&parseTime=True&loc=Local",
 		os.Getenv("DB_USER"),
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_NAME"),
 	)
 
+	log.Printf("String de conexão: %s", StringConnection)
+	log.Printf("Servidor rodando na porta %d", Port)
 }
