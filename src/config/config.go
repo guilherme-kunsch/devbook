@@ -31,7 +31,4 @@ func ToLoad() {
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_NAME"),
 	)
-
-	log.Printf("String de conexão: %s", StringConnection)
-	log.Printf("Servidor rodando na porta %d", Port)
 }

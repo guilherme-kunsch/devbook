@@ -25,6 +25,11 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println(user)
 
+	if err := user.Prepare(); err != nil {
+		response.Erro(w, http.StatusBadRequest, err)
+		return
+	}
+
 	db, err := banco.Conection()
 	if err != nil {
 		response.Erro(w, http.StatusInternalServerError, err)
@@ -43,7 +48,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func SearchUsers(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Buscando todos os usuários")
+
 }
 
 func SearchUser(w http.ResponseWriter, r *http.Request) {
